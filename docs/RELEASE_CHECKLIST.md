@@ -4,6 +4,7 @@
 
 - [ ] `pnpm install --frozen-lockfile`
 - [ ] `pnpm prisma:generate`
+- [ ] `pnpm audit:secrets`
 - [ ] `pnpm format:check`
 - [ ] `pnpm typecheck`
 - [ ] `pnpm lint`
@@ -19,7 +20,7 @@
 ## Avant Push
 
 - [ ] Remote GitHub correct
-- [ ] Branche `main`
+- [ ] Branche de travail dédiée, pas de push direct sur `main`
 - [ ] Liste des fichiers staged revue
 - [ ] Commit message clair
 
@@ -58,5 +59,5 @@
 - [ ] #10 Configure production PostgreSQL backups and restore test
 - [ ] #11 Replace admin token V1 with Auth.js or SSO
 - [ ] #12 Set up monitoring and alerting
-- [ ] #13 Review and merge remaining Dependabot PRs
+- [x] #13 Review and merge remaining Dependabot PRs
 - [ ] #14 Validate data retention and privacy policy before production

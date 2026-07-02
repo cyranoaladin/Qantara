@@ -71,8 +71,9 @@ NODE_ENV="development"
 ```
 
 Ne jamais committer `.env`, `.env.local`, `.env.production` ou un fichier contenant
-des secrets réels. `ADMIN_TOKEN` doit être long, unique et différent de
-`change-me` en production.
+des secrets réels. En production, `ADMIN_TOKEN` doit être long, unique, contenir
+au moins 32 caractères et ne pas reprendre un placeholder comme `change-me` ou
+`replace-with-long-random-token`.
 
 Pour Vercel, utiliser les placeholders de `.env.vercel.example` puis configurer
 les vraies valeurs dans les environnements Vercel, jamais dans Git.
@@ -115,12 +116,14 @@ pnpm prisma:migrate
 pnpm prisma:deploy
 pnpm prisma:studio
 pnpm prisma:seed
+pnpm audit:secrets
 pnpm ci
 pnpm check
 ```
 
 `pnpm ci` exécute génération Prisma, typecheck, lint, tests unitaires et build.
-`pnpm check` ajoute le contrôle Prettier et les tests E2E Playwright.
+`pnpm check` ajoute le contrôle Prettier, le scan local de secrets et les tests
+E2E Playwright.
 
 ## Tests
 
@@ -158,8 +161,9 @@ Workflows GitHub Actions :
 - `.github/workflows/ci.yml` : install frozen lockfile, Prisma generate,
   typecheck, lint, format check, tests unitaires, build, Playwright Chromium et
   tests d'intégration PostgreSQL.
-- `.github/workflows/security.yml` : audit dépendances, vérification des fichiers
-  `.env` suivis et scan de secrets concrets.
+- `.github/workflows/security.yml` : audit dépendances et exécution du scan local
+  `scripts/scan-secrets.sh`, qui vérifie les fichiers `.env` suivis et les
+  secrets concrets.
 
 La CI qualité utilise uniquement des variables factices. Aucun secret GitHub n'est
 nécessaire pour valider une pull request.

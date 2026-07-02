@@ -3,22 +3,37 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 
 const adminCookieName = "qantara_admin";
-const placeholderAdminToken = "change-me";
+const placeholderAdminTokens = new Set(["change-me", "replace-with-long-random-token"]);
+const minimumProductionTokenLength = 32;
 
 type RuntimeEnv = "development" | "production" | "test" | string;
 
 export function isAdminTokenConfigured(token?: string): token is string {
-  return Boolean(token && token.trim() && token !== placeholderAdminToken);
+  const normalizedToken = token?.trim();
+
+  return Boolean(normalizedToken && !placeholderAdminTokens.has(normalizedToken));
 }
 
 export function assertAdminConfigured(
   token?: string,
   nodeEnv: RuntimeEnv = process.env.NODE_ENV,
 ) {
-  if (nodeEnv === "production" && !isAdminTokenConfigured(token)) {
+  if (nodeEnv !== "production") return;
+
+  const normalizedToken = token?.trim();
+
+  if (!isAdminTokenConfigured(normalizedToken)) {
     throw new Error(
       "ADMIN_TOKEN must be configured with a strong non-placeholder value in production.",
     );
+  }
+
+  if (isCiLikeAdminToken(normalizedToken)) {
+    throw new Error("ADMIN_TOKEN must not use CI placeholder values in production.");
+  }
+
+  if (normalizedToken.length < minimumProductionTokenLength) {
+    throw new Error("ADMIN_TOKEN must contain at least 32 characters in production.");
   }
 }
 
@@ -85,4 +100,8 @@ function verifyAdminTokenHash(submittedToken: string, expectedHash: string) {
   if (submitted.length !== expected.length) return false;
 
   return timingSafeEqual(submitted, expected);
+}
+
+function isCiLikeAdminToken(token: string) {
+  return /^ci[-_]?admin[-_]?token/i.test(token);
 }

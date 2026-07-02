@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { AdminLoginForm } from "@/components/admin/AdminLoginForm";
 import { Card } from "@/components/ui/card";
 import { isAdminAuthenticated, isAdminConfigured } from "@/lib/admin-auth";
@@ -18,11 +17,12 @@ export const metadata: Metadata = createMetadata({
 export default async function AdminPage() {
   const configured = isAdminConfigured();
   const authenticated = await isAdminAuthenticated();
+  const dashboard = authenticated ? await renderAdminDashboard() : null;
 
   return (
     <section className="section-padding">
       <div className="container-shell">
-        {authenticated ? <AdminDashboard /> : null}
+        {dashboard}
         {!authenticated && configured ? <AdminLoginForm /> : null}
         {!authenticated && !configured ? (
           <Card className="mx-auto max-w-lg">
@@ -36,4 +36,10 @@ export default async function AdminPage() {
       </div>
     </section>
   );
+}
+
+async function renderAdminDashboard() {
+  const { AdminDashboard } = await import("@/components/admin/AdminDashboard");
+
+  return <AdminDashboard />;
 }

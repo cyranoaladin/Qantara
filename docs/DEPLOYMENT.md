@@ -21,6 +21,13 @@ Configurer par environnement :
 Ne jamais utiliser de variable sensible préfixée `NEXT_PUBLIC_`.
 Le fichier `.env.vercel.example` fournit uniquement des placeholders. Les vraies
 valeurs doivent être saisies dans Vercel Project Settings > Environment Variables.
+Ne jamais utiliser ce fichier tel quel en preview ou production.
+
+Générer `ADMIN_TOKEN` avec une valeur longue et aléatoire :
+
+```bash
+openssl rand -base64 48
+```
 
 ## Preview
 

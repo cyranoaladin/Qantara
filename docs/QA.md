@@ -5,6 +5,7 @@
 ```bash
 pnpm install --frozen-lockfile
 pnpm prisma:generate
+pnpm audit:secrets
 pnpm format:check
 pnpm typecheck
 pnpm lint
@@ -100,3 +101,14 @@ Procédure manuelle avant release :
 
 Ne pas bloquer la CI sur Lighthouse tant que les seuils n'ont pas été mesurés
 plusieurs fois en environnement stable.
+
+## Smoke Test Post-Déploiement
+
+Après une preview ou une mise en production, vérifier :
+
+- `/` répond en 200 avec le H1 principal visible ;
+- `/services`, `/diagnostic-ia`, `/contact` et `/confidentialite` répondent en 200 ;
+- `/admin` n'expose aucune donnée sans authentification ;
+- les headers de sécurité attendus sont présents ;
+- les formulaires affichent les erreurs de validation sans écriture en base ;
+- le footer et les mentions légales restent lisibles sur mobile.
