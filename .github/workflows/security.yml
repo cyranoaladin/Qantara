@@ -39,7 +39,7 @@ jobs:
       - name: Ensure real env files are not committed
         run: |
           set -euo pipefail
-          if git ls-files | grep -E '(^|/)\.env(\.|$)' | grep -v '^\.env\.example$'; then
+          if git ls-files | grep -E '(^|/)\.env(\.|$)' | grep -v -E '^\.env\.(example|vercel\.example)$'; then
             echo "A real environment file is tracked."
             exit 1
           fi
@@ -56,14 +56,14 @@ jobs:
           resend_key_pattern='r''e_[A-Za-z0-9_=-]{24,}'
           secret_key_pattern="(${openai_key_pattern}|${github_classic_pattern}|${github_fine_grained_pattern}|${resend_key_pattern})"
 
-          if git grep -nE "(${password_url_pattern}|${secret_key_pattern})" -- ':!README.md' ':!.env.example' ':!docs/**'; then
+          if git grep -nE "(${password_url_pattern}|${secret_key_pattern})" -- ':!README.md' ':!.env.example' ':!.env.vercel.example' ':!docs/**'; then
             echo "Potential hardcoded credential found."
             exit 1
           fi
 
           resend_var='RESEND_API''_KEY'
           admin_var='ADMIN''_TOKEN'
-          if git grep -nE "(${resend_var}=[\"']?[A-Za-z0-9_=-]{16,}|${admin_var}=[\"']?[A-Za-z0-9_=-]{16,})" -- ':!README.md' ':!.env.example' ':!docs/**'; then
+          if git grep -nE "(${resend_var}=[\"']?[A-Za-z0-9_=-]{16,}|${admin_var}=[\"']?[A-Za-z0-9_=-]{16,})" -- ':!README.md' ':!.env.example' ':!.env.vercel.example' ':!docs/**'; then
             echo "Potential assigned secret found."
             exit 1
           fi

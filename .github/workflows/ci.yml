@@ -16,7 +16,7 @@ permissions:
 env:
   DATABASE_URL: postgresql://qantara_ci@localhost:5432/qantara_ai
   NEXT_PUBLIC_SITE_URL: http://localhost:3000
-  ADMIN_TOKEN: ci-admin-token
+  ADMIN_TOKEN: ci-admin-token-long-enough
   INTERNAL_CONTACT_EMAIL: contact@qantara-ai.com
   RESEND_API_KEY: ""
   RESEND_FROM_EMAIL: Qantara AI <contact@qantara-ai.com>
@@ -83,21 +83,21 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16-alpine
+        image: postgres:17-alpine
         env:
           POSTGRES_USER: qantara
-          POSTGRES_DB: qantara_ai_test
+          POSTGRES_DB: qantara_ci
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U qantara -d qantara_ai_test"
+          --health-cmd "pg_isready -U qantara -d qantara_ci"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
 
     env:
-      DATABASE_URL: postgresql://qantara@localhost:5432/qantara_ai_test
+      DATABASE_URL: postgresql://qantara@localhost:5432/qantara_ci
       INTERNAL_CONTACT_EMAIL: contact@qantara-ai.com
       RESEND_API_KEY: ""
       RESEND_FROM_EMAIL: Qantara AI <contact@qantara-ai.com>

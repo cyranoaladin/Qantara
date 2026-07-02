@@ -23,7 +23,7 @@ export default defineConfig({
     env: {
       DATABASE_URL: "postgresql://qantara_ci@localhost:5432/qantara_ai",
       NEXT_PUBLIC_SITE_URL: "http://127.0.0.1:3187",
-      ADMIN_TOKEN: "ci-admin-token",
+      ADMIN_TOKEN: "ci-admin-token-long-enough",
       INTERNAL_CONTACT_EMAIL: "contact@qantara-ai.com",
       RESEND_API_KEY: "",
       RESEND_FROM_EMAIL: "Qantara AI <contact@qantara-ai.com>",

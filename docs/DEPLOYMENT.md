@@ -19,6 +19,8 @@ Configurer par environnement :
 - `RESEND_FROM_EMAIL` si Resend est activé
 
 Ne jamais utiliser de variable sensible préfixée `NEXT_PUBLIC_`.
+Le fichier `.env.vercel.example` fournit uniquement des placeholders. Les vraies
+valeurs doivent être saisies dans Vercel Project Settings > Environment Variables.
 
 ## Preview
 
@@ -75,6 +77,18 @@ Ordre de release recommandé :
 - Uptime monitoring sur `/`, `/contact`, `/diagnostic-ia`.
 
 Voir [OBSERVABILITY.md](OBSERVABILITY.md).
+Politique de sauvegarde : [BACKUP_POLICY.md](BACKUP_POLICY.md).
+
+## Checklist Bloquante Production
+
+- `DATABASE_URL` production configurée.
+- Migrations appliquées et vérifiées.
+- `ADMIN_TOKEN` robuste configuré en secret.
+- `RESEND_FROM_EMAIL` configuré si `RESEND_API_KEY` est actif.
+- Domaine final et `NEXT_PUBLIC_SITE_URL` alignés.
+- Sauvegarde PostgreSQL active et restauration testée.
+- Monitoring externe configuré.
+- Dernier CI `main` vert.
 
 ## Branches
 

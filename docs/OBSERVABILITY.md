@@ -48,6 +48,8 @@ La sonde ne doit pas soumettre de données réelles.
 - Documenter RPO/RTO.
 - Restreindre l'accès aux sauvegardes.
 
+Détails opérationnels : [BACKUP_POLICY.md](BACKUP_POLICY.md).
+
 ## Intégrations Futures
 
 Sentry, Axiom, Better Stack, Datadog ou Grafana peuvent être ajoutés après choix

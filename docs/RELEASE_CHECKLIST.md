@@ -35,6 +35,7 @@
 ## Avant Production
 
 - [ ] Variables Vercel configurées
+- [ ] Environnements GitHub `preview` et `production` créés si un workflow de déploiement les utilise
 - [ ] Base PostgreSQL production créée
 - [ ] Sauvegarde base activée
 - [ ] `pnpm prisma:deploy` exécuté contre la bonne base
@@ -46,3 +47,16 @@
 - [ ] Protection de branche GitHub activée
 - [ ] Politique de conservation des données validée
 - [ ] Restauration PostgreSQL testée
+- [ ] Politique de sauvegarde appliquée : voir `docs/BACKUP_POLICY.md`
+- [ ] PR Dependabot restantes triées ou planifiées
+- [ ] Auth admin V1 acceptée explicitement ou remplacée par Auth.js/SSO
+- [ ] Issues production-readiness restantes fermées ou reportées avec propriétaire
+
+## Issues Externes À Fermer Avant Production Candidate
+
+- [ ] #9 Configure Vercel environments and production secrets
+- [ ] #10 Configure production PostgreSQL backups and restore test
+- [ ] #11 Replace admin token V1 with Auth.js or SSO
+- [ ] #12 Set up monitoring and alerting
+- [ ] #13 Review and merge remaining Dependabot PRs
+- [ ] #14 Validate data retention and privacy policy before production

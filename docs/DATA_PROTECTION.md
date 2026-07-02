@@ -85,6 +85,8 @@ Avant production :
 - tester une restauration ;
 - restreindre l'accès aux sauvegardes.
 
+Politique cible : [BACKUP_POLICY.md](BACKUP_POLICY.md).
+
 ## Incident
 
 En cas d'exposition ou perte de données :
