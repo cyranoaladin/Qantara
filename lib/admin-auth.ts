@@ -7,12 +7,12 @@ const placeholderAdminToken = "change-me";
 
 type RuntimeEnv = "development" | "production" | "test" | string;
 
-export function isAdminTokenConfigured(token = process.env.ADMIN_TOKEN): token is string {
+export function isAdminTokenConfigured(token?: string): token is string {
   return Boolean(token && token.trim() && token !== placeholderAdminToken);
 }
 
 export function assertAdminConfigured(
-  token = process.env.ADMIN_TOKEN,
+  token?: string,
   nodeEnv: RuntimeEnv = process.env.NODE_ENV,
 ) {
   if (nodeEnv === "production" && !isAdminTokenConfigured(token)) {
@@ -23,9 +23,10 @@ export function assertAdminConfigured(
 }
 
 export function isAdminConfigured() {
-  assertAdminConfigured();
+  const token = process.env.ADMIN_TOKEN;
+  assertAdminConfigured(token);
 
-  return isAdminTokenConfigured();
+  return isAdminTokenConfigured(token);
 }
 
 export async function isAdminAuthenticated() {
