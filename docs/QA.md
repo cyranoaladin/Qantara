@@ -42,7 +42,9 @@ Playwright vérifie :
 - navigation routes publiques ;
 - logo desktop, symbole mobile et favicon ;
 - absence d'overflow horizontal ;
-- erreurs formulaire contact sans écrire en base.
+- erreurs formulaire contact sans écrire en base ;
+- headers de sécurité ;
+- `/admin` noindex et absent des robots.
 
 ## Passe Manuelle Responsive
 
@@ -91,8 +93,10 @@ Contrôles :
 Procédure manuelle avant release :
 
 - Page `/` : Performance > 90, Accessibility > 95, Best Practices > 95, SEO > 95.
+- Page `/services` : mêmes seuils.
 - Page `/diagnostic-ia` : mêmes seuils.
 - Page `/contact` : mêmes seuils.
+- Page `/confidentialite` : mêmes seuils.
 
 Ne pas bloquer la CI sur Lighthouse tant que les seuils n'ont pas été mesurés
 plusieurs fois en environnement stable.

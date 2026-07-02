@@ -23,7 +23,7 @@
     "prisma:studio": "prisma studio",
     "prisma:seed": "tsx prisma/seed.ts",
     "ci": "pnpm prisma:generate && pnpm typecheck && pnpm lint && pnpm test && pnpm build",
-    "check": "pnpm format:check && pnpm ci"
+    "check": "pnpm format:check && pnpm ci && pnpm test:e2e"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

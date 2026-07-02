@@ -76,6 +76,12 @@ fonts et assets SVG sans audit complet. Une CSP report-only est recommandée ava
 activation stricte. HSTS doit être activé uniquement sur HTTPS production, au
 niveau Vercel/domaine.
 
+## Production Readiness Bloquante
+
+Le dépôt ne doit pas être déclaré prêt pour production commerciale tant que les
+secrets Vercel, la base PostgreSQL production, les sauvegardes testées, le
+monitoring externe et une décision sur l'auth admin durable ne sont pas en place.
+
 ## GitHub Actions
 
 Les workflows utilisent `contents: read`. La CI qualité n'utilise pas de secrets.

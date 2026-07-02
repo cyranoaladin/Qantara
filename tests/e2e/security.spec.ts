@@ -26,4 +26,11 @@ test.describe("security posture", () => {
     await expect(page.getByText("Derniers leads")).toHaveCount(0);
     await expect(page.getByText("Derniers diagnostics")).toHaveCount(0);
   });
+
+  test("disallows admin crawling in robots.txt", async ({ page }) => {
+    const response = await page.goto("/robots.txt");
+
+    expect(response?.ok()).toBe(true);
+    await expect(page.locator("body")).toContainText("Disallow: /admin");
+  });
 });

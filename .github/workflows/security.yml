@@ -39,7 +39,7 @@ jobs:
       - name: Ensure real env files are not committed
         run: |
           set -euo pipefail
-          if git ls-files | grep -E '(^|/)\.env(\.|$)' | grep -v '^\.env\.example$'; then
+          if git ls-files | grep -E '(^|/)\.env(\.|$)' | grep -v -E '^\.env\.(example|vercel\.example)$'; then
             echo "A real environment file is tracked."
             exit 1
           fi

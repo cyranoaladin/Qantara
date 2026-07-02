@@ -15,12 +15,15 @@ prêt pour production commerciale tant que les éléments suivants ne sont pas
 configurés ou validés :
 
 - base PostgreSQL production ;
-- migrations appliquées sur l'environnement cible ;
-- secrets Vercel ;
-- protection GitHub `main` ;
+- migrations appliquées et testées sur l'environnement cible ;
+- secrets Vercel configurés ;
 - politique de conservation des données validée ;
 - stratégie d'auth admin durable ;
-- monitoring, sauvegardes et procédure incident.
+- monitoring, alerting et sauvegardes PostgreSQL ;
+- triage Dependabot terminé.
+
+La branche `main` est protégée : pull request obligatoire, checks requis, branche
+à jour, conversations résolues, force-push et suppression bloqués.
 
 ## Stack
 
@@ -71,6 +74,9 @@ Ne jamais committer `.env`, `.env.local`, `.env.production` ou un fichier conten
 des secrets réels. `ADMIN_TOKEN` doit être long, unique et différent de
 `change-me` en production.
 
+Pour Vercel, utiliser les placeholders de `.env.vercel.example` puis configurer
+les vraies valeurs dans les environnements Vercel, jamais dans Git.
+
 ## Base De Données
 
 Le schéma est dans `prisma/schema.prisma`. Le client généré est placé dans
@@ -114,7 +120,7 @@ pnpm check
 ```
 
 `pnpm ci` exécute génération Prisma, typecheck, lint, tests unitaires et build.
-`pnpm check` ajoute le contrôle Prettier.
+`pnpm check` ajoute le contrôle Prettier et les tests E2E Playwright.
 
 ## Tests
 
@@ -176,7 +182,8 @@ Déploiement Vercel : voir [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 Voir [docs/SECURITY.md](docs/SECURITY.md).
 Voir aussi [docs/ADMIN_SECURITY.md](docs/ADMIN_SECURITY.md),
 [docs/DATA_PROTECTION.md](docs/DATA_PROTECTION.md) et
-[docs/OBSERVABILITY.md](docs/OBSERVABILITY.md).
+[docs/OBSERVABILITY.md](docs/OBSERVABILITY.md). Politique de sauvegarde :
+[docs/BACKUP_POLICY.md](docs/BACKUP_POLICY.md).
 
 ## Admin
 
@@ -253,7 +260,7 @@ tests produit et revue.
 4. Lancer `pnpm prisma:deploy` sur l'environnement cible.
 5. Vérifier `NEXT_PUBLIC_SITE_URL` avec le domaine final.
 6. Lancer une passe QA : [docs/QA.md](docs/QA.md).
-7. Activer la protection de branche GitHub.
-8. Configurer monitoring et alerting minimal.
+7. Vérifier que la protection de branche GitHub reste active.
+8. Configurer monitoring, alerting et sauvegardes PostgreSQL.
 
 Checklist détaillée : [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md).
