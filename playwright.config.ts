@@ -26,6 +26,7 @@ export default defineConfig({
       ADMIN_TOKEN: "ci-admin-token",
       INTERNAL_CONTACT_EMAIL: "contact@qantara-ai.com",
       RESEND_API_KEY: "",
+      RESEND_FROM_EMAIL: "Qantara AI <contact@qantara-ai.com>",
     },
   },
   projects: [

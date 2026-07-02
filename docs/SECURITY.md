@@ -7,6 +7,7 @@ Secrets attendus :
 - `DATABASE_URL`
 - `ADMIN_TOKEN`
 - `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL` si Resend est activé
 - `INTERNAL_CONTACT_EMAIL` si l'adresse interne ne doit pas être publique
 
 Règles :
@@ -34,7 +35,8 @@ les téléphones ou des données personnelles non nécessaires.
 ## Admin V1
 
 `/admin` est protégé par `ADMIN_TOKEN`. Le cookie admin contient un hash du token,
-pas le token brut. Options cookie :
+pas le token brut. La comparaison utilise `timingSafeEqual` sur les hashes.
+Options cookie :
 
 - `httpOnly`;
 - `sameSite=lax`;
@@ -48,12 +50,31 @@ Limites assumées :
 - pas d'audit trail admin ;
 - protection à remplacer par Auth.js, SSO ou une solution IAM avant usage large.
 
+Détails : [ADMIN_SECURITY.md](ADMIN_SECURITY.md).
+
 ## Données Sensibles
 
 Le site demande explicitement de ne pas transmettre de données sensibles dans les
 formulaires publics. Toute mission utilisant des données personnelles ou sensibles
 doit passer par un cadrage : classification, hébergement, accès, rétention,
 validation humaine et règles internes.
+
+Cadre données : [DATA_PROTECTION.md](DATA_PROTECTION.md).
+
+## Headers HTTP
+
+`next.config.ts` définit :
+
+- `X-Content-Type-Options: nosniff`;
+- `Referrer-Policy: strict-origin-when-cross-origin`;
+- `X-Frame-Options: DENY`;
+- `Permissions-Policy` restrictive ;
+- `Cross-Origin-Opener-Policy: same-origin`.
+
+La CSP n'est pas activée en blocage en V1 pour éviter de casser Next.js, JSON-LD,
+fonts et assets SVG sans audit complet. Une CSP report-only est recommandée avant
+activation stricte. HSTS doit être activé uniquement sur HTTPS production, au
+niveau Vercel/domaine.
 
 ## GitHub Actions
 

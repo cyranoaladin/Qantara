@@ -9,6 +9,7 @@ pnpm format:check
 pnpm typecheck
 pnpm lint
 pnpm test
+pnpm test:integration
 pnpm build
 pnpm exec playwright install --with-deps chromium
 pnpm test:e2e
@@ -22,6 +23,16 @@ pnpm test:e2e
 - Contenu produit : pas de faux clients, faux témoignages ou promesses absolues.
 - Brand assets : SVG officiels et tokens.
 - SEO : site URL, Organization, ProfessionalService, FAQPage, sitemap.
+
+## Tests D'Intégration PostgreSQL
+
+Les tests dans `tests/integration` nécessitent une vraie base PostgreSQL et des
+migrations appliquées :
+
+```bash
+DATABASE_URL="postgresql://qantara:qantara@localhost:55432/qantara_ai_test" pnpm prisma:deploy
+DATABASE_URL="postgresql://qantara:qantara@localhost:55432/qantara_ai_test" pnpm test:integration
+```
 
 ## Tests E2E
 
@@ -74,3 +85,14 @@ Contrôles :
 - Labels visibles sur les champs.
 - Focus visible.
 - Messages d'erreur compréhensibles.
+
+## Lighthouse
+
+Procédure manuelle avant release :
+
+- Page `/` : Performance > 90, Accessibility > 95, Best Practices > 95, SEO > 95.
+- Page `/diagnostic-ia` : mêmes seuils.
+- Page `/contact` : mêmes seuils.
+
+Ne pas bloquer la CI sur Lighthouse tant que les seuils n'ont pas été mesurés
+plusieurs fois en environnement stable.
