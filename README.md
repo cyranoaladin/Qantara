@@ -4,9 +4,23 @@ Plateforme web full-stack pour Qantara AI : conseil, formation, développement,
 déploiement et gouvernance de solutions d'intelligence artificielle pour les
 organisations tunisiennes et francophones.
 
-Le projet est une V1 professionnelle prête pour un dépôt GitHub auditable :
-Next.js App Router, formulaires serveur, Prisma/PostgreSQL, SEO, admin minimal,
-tests, CI GitHub Actions et documentation de release.
+Le projet est une V1 professionnelle prête pour développement et preview
+technique : Next.js App Router, formulaires serveur, Prisma/PostgreSQL, SEO,
+admin minimal, tests, CI GitHub Actions et documentation de release.
+
+## Statut
+
+Le dépôt est prêt pour développement et preview technique. Il n'est pas encore
+prêt pour production commerciale tant que les éléments suivants ne sont pas
+configurés ou validés :
+
+- base PostgreSQL production ;
+- migrations appliquées sur l'environnement cible ;
+- secrets Vercel ;
+- protection GitHub `main` ;
+- politique de conservation des données validée ;
+- stratégie d'auth admin durable ;
+- monitoring, sauvegardes et procédure incident.
 
 ## Stack
 
@@ -46,6 +60,7 @@ Variables attendues :
 ```bash
 DATABASE_URL="postgresql://user:password@localhost:5432/qantara_ai"
 RESEND_API_KEY=""
+RESEND_FROM_EMAIL="Qantara AI <contact@qantara-ai.com>"
 INTERNAL_CONTACT_EMAIL="contact@qantara-ai.com"
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ADMIN_TOKEN="change-me"
@@ -72,6 +87,8 @@ Si aucune base locale n'est disponible, `pnpm prisma:generate` reste possible av
 une `DATABASE_URL` factice. Ne lancez pas de migration contre une base non
 maîtrisée.
 
+Migrations : voir [docs/PRISMA_MIGRATIONS.md](docs/PRISMA_MIGRATIONS.md).
+
 ## Commandes
 
 ```bash
@@ -83,6 +100,7 @@ pnpm typecheck
 pnpm format
 pnpm format:check
 pnpm test
+pnpm test:integration
 pnpm test:watch
 pnpm test:coverage
 pnpm test:e2e
@@ -117,6 +135,9 @@ Les tests Playwright couvrent :
 - routes publiques principales ;
 - erreurs de validation du formulaire contact sans écriture base.
 
+Les tests d'intégration PostgreSQL couvrent les écritures réelles des formulaires
+contact, diagnostic et newsletter sur une base de test.
+
 Installer les navigateurs si nécessaire :
 
 ```bash
@@ -129,7 +150,8 @@ pnpm test:e2e
 Workflows GitHub Actions :
 
 - `.github/workflows/ci.yml` : install frozen lockfile, Prisma generate,
-  typecheck, lint, format check, tests unitaires, build et Playwright Chromium.
+  typecheck, lint, format check, tests unitaires, build, Playwright Chromium et
+  tests d'intégration PostgreSQL.
 - `.github/workflows/security.yml` : audit dépendances, vérification des fichiers
   `.env` suivis et scan de secrets concrets.
 
@@ -152,6 +174,9 @@ Déploiement Vercel : voir [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 - Pas de logs de données personnelles en production.
 
 Voir [docs/SECURITY.md](docs/SECURITY.md).
+Voir aussi [docs/ADMIN_SECURITY.md](docs/ADMIN_SECURITY.md),
+[docs/DATA_PROTECTION.md](docs/DATA_PROTECTION.md) et
+[docs/OBSERVABILITY.md](docs/OBSERVABILITY.md).
 
 ## Admin
 
@@ -212,6 +237,9 @@ Stratégie recommandée :
 - protection de branche : status checks requis, PR requise, force push bloqué,
   conversations résolues ;
 - production déclenchée uniquement depuis `main`.
+
+Configuration recommandée : [docs/GITHUB_PROTECTION.md](docs/GITHUB_PROTECTION.md).
+Triage Dependabot : [docs/DEPENDABOT_TRIAGE.md](docs/DEPENDABOT_TRIAGE.md).
 
 La règle ESLint `react/no-unescaped-entities` est désactivée pour éviter le bruit
 sur les textes français riches en apostrophes. Les contenus restent relus via

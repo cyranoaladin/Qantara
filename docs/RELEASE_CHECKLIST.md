@@ -8,6 +8,7 @@
 - [ ] `pnpm typecheck`
 - [ ] `pnpm lint`
 - [ ] `pnpm test`
+- [ ] `pnpm test:integration`
 - [ ] `pnpm build`
 - [ ] `pnpm test:e2e`
 - [ ] `git diff --check`
@@ -40,5 +41,8 @@
 - [ ] `NEXT_PUBLIC_SITE_URL` pointe vers le domaine final
 - [ ] `ADMIN_TOKEN` robuste et stocké en secret
 - [ ] Resend configuré ou explicitement désactivé
+- [ ] `RESEND_FROM_EMAIL` configuré si Resend est activé
 - [ ] Logs et monitoring vérifiés
 - [ ] Protection de branche GitHub activée
+- [ ] Politique de conservation des données validée
+- [ ] Restauration PostgreSQL testée

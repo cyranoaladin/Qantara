@@ -33,6 +33,14 @@ Les schémas Zod sont dans `lib/validators`. Les Server Actions sont dans
 Chaque action valide avant toute écriture base, puis déclenche Resend seulement si
 la clé API est disponible.
 
+La logique métier testable est dans `lib/services` :
+
+- `submitContactData`;
+- `submitDiagnosticData`;
+- `submitNewsletterData`.
+
+Ces services sont couverts par des tests d'intégration PostgreSQL.
+
 ## Prisma
 
 Le client Prisma est généré dans `app/generated/prisma`, ignoré par Git.
