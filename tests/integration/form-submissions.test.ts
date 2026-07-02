@@ -148,7 +148,7 @@ describe("form submission integration with PostgreSQL", () => {
 
   it("returns a neutral error when PostgreSQL is unavailable", async () => {
     const unavailableDb = new PrismaClient({
-      adapter: new PrismaPg("postgresql://qantara:qantara@localhost:1/qantara_ai_test"),
+      adapter: new PrismaPg("postgresql://localhost:1/qantara_ai_test"),
     });
 
     try {
