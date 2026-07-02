@@ -21,6 +21,10 @@ validée avec le fournisseur PostgreSQL retenu et testée avant ouverture publiq
 - Production : 30 jours minimum recommandés pour la V1.
 - Conservation plus longue uniquement si besoin contractuel ou légal documenté.
 - Les sauvegardes doivent respecter la politique de conservation des données.
+- En cas de retrait de consentement ou demande de suppression, l'enregistrement
+  concerné doit être supprimé ou anonymisé dans la base active. Si une sauvegarde
+  antérieure est restaurée, les suppressions/anonymisations déjà demandées doivent
+  être réappliquées avant remise en service.
 
 ## Chiffrement Et Accès
 

@@ -7,6 +7,8 @@ if (!databaseUrl) {
   throw new Error("DATABASE_URL is required for integration tests.");
 }
 
+assertSafeIntegrationDatabaseUrl(databaseUrl);
+
 export const prisma = new PrismaClient({
   adapter: new PrismaPg(databaseUrl),
 });
@@ -61,4 +63,24 @@ export async function cleanDatabase() {
   await prisma.resourceDownload.deleteMany();
   await prisma.lead.deleteMany();
   await prisma.adminUser.deleteMany();
+}
+
+function assertSafeIntegrationDatabaseUrl(url: string) {
+  let parsed: URL;
+
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new Error("DATABASE_URL must be a valid PostgreSQL URL.");
+  }
+
+  const databaseName = parsed.pathname.replace("/", "");
+  const safeHost = ["localhost", "127.0.0.1"].includes(parsed.hostname);
+  const safeDatabaseName = /(?:^|_)(test|ci)(?:$|_)/i.test(databaseName);
+
+  if (!safeHost || !safeDatabaseName) {
+    throw new Error(
+      "Integration tests require a local PostgreSQL database with a test or ci database name.",
+    );
+  }
 }

@@ -10,7 +10,6 @@ import { cleanDatabase, contactInput, prisma } from "./helpers";
 describe("contact service integration with PostgreSQL", () => {
   beforeEach(async () => {
     await cleanDatabase();
-    process.env.RESEND_API_KEY = "";
   });
 
   afterAll(async () => {
@@ -24,6 +23,7 @@ describe("contact service integration with PostgreSQL", () => {
     const result = await submitContactData(parsed, {
       db: prisma,
       meta: { ipHash: "hashed-ip", userAgent: "vitest" },
+      sendNotification: async () => {},
     });
 
     expect(result.status).toBe("success");

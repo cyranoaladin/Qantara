@@ -8,7 +8,6 @@ import { cleanDatabase, newsletterInput, prisma } from "./helpers";
 describe("newsletter service integration with PostgreSQL", () => {
   beforeEach(async () => {
     await cleanDatabase();
-    process.env.RESEND_API_KEY = "";
   });
 
   afterAll(async () => {
@@ -22,10 +21,13 @@ describe("newsletter service integration with PostgreSQL", () => {
       email: "NEWSLETTER.INTEGRATION@QANTARA-AI.TEST",
     });
 
-    const first = await submitNewsletterData(parsed, { db: prisma });
+    const first = await submitNewsletterData(parsed, {
+      db: prisma,
+      sendNotification: async () => {},
+    });
     const second = await submitNewsletterData(
       { ...parsed, firstName: "Ala" },
-      { db: prisma },
+      { db: prisma, sendNotification: async () => {} },
     );
 
     expect(first.status).toBe("success");

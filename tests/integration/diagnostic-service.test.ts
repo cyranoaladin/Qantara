@@ -8,7 +8,6 @@ import { cleanDatabase, diagnosticInput, prisma } from "./helpers";
 describe("diagnostic service integration with PostgreSQL", () => {
   beforeEach(async () => {
     await cleanDatabase();
-    process.env.RESEND_API_KEY = "";
   });
 
   afterAll(async () => {
@@ -22,6 +21,7 @@ describe("diagnostic service integration with PostgreSQL", () => {
     const result = await submitDiagnosticData(parsed, {
       db: prisma,
       meta: { ipHash: "diagnostic-ip", userAgent: "vitest" },
+      sendNotification: async () => {},
     });
 
     expect(result.status).toBe("success");

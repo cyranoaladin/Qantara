@@ -120,7 +120,7 @@ pnpm check
 ```
 
 `pnpm ci` exécute génération Prisma, typecheck, lint, tests unitaires et build.
-`pnpm check` ajoute le contrôle Prettier.
+`pnpm check` ajoute le contrôle Prettier et les tests E2E Playwright.
 
 ## Tests
 
