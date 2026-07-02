@@ -1,7 +1,18 @@
 # Protection GitHub
 
-État audité : la branche `main` n'était pas protégée au moment de l'audit
+État audité : la branche `main` n'était pas protégée au début de l'audit
 (`Branch not protected`, API GitHub 404).
+
+État appliqué le 2026-07-02 via API GitHub :
+
+- protection de branche active sur `main` ;
+- pull request obligatoire avant merge ;
+- branche à jour obligatoire avant merge ;
+- conversations à résoudre avant merge ;
+- force-push bloqué ;
+- suppression de branche bloquée ;
+- règles appliquées aux administrateurs ;
+- aucun reviewer obligatoire pour l'instant afin de ne pas bloquer un dépôt solo.
 
 ## Règles Recommandées
 
@@ -28,7 +39,8 @@ Selon l'affichage GitHub, les checks peuvent apparaître avec leur workflow :
 
 ## Commande API Indicative
 
-À appliquer seulement après le push final du durcissement :
+La protection a été appliquée avec cette stratégie après le push final du
+durcissement :
 
 ```bash
 gh api \
