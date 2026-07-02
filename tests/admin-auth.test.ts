@@ -13,13 +13,28 @@ describe("admin auth hardening", () => {
     expect(isAdminTokenConfigured(undefined)).toBe(false);
     expect(isAdminTokenConfigured("")).toBe(false);
     expect(isAdminTokenConfigured("change-me")).toBe(false);
+    expect(isAdminTokenConfigured("replace-with-long-random-token")).toBe(false);
     expect(isAdminTokenConfigured("strong-admin-token")).toBe(true);
   });
 
   it("fails explicitly in production when admin token is missing or weak", () => {
     expect(() => assertAdminConfigured(undefined, "production")).toThrow("ADMIN_TOKEN");
     expect(() => assertAdminConfigured("change-me", "production")).toThrow("ADMIN_TOKEN");
-    expect(() => assertAdminConfigured("strong-admin-token", "production")).not.toThrow();
+    expect(() =>
+      assertAdminConfigured("replace-with-long-random-token", "production"),
+    ).toThrow("ADMIN_TOKEN");
+    expect(() => assertAdminConfigured("ci-admin-token", "production")).toThrow(
+      "ADMIN_TOKEN",
+    );
+    expect(() => assertAdminConfigured("short-production-token", "production")).toThrow(
+      "at least 32 characters",
+    );
+    expect(() =>
+      assertAdminConfigured(
+        "a-long-random-admin-token-with-more-than-32-characters",
+        "production",
+      ),
+    ).not.toThrow();
   });
 
   it("verifies tokens with a hash comparison and rejects invalid values", () => {

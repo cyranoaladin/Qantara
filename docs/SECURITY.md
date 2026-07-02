@@ -89,7 +89,18 @@ Le workflow sécurité vérifie :
 
 - dépendances avec `pnpm audit`;
 - absence de fichier `.env` suivi ;
-- patterns de secrets concrets.
+- patterns de secrets concrets via `scripts/scan-secrets.sh`.
+
+`.env.example` est autorisé comme référence locale. `.env.vercel.example` est
+autorisé comme template Vercel, mais il reste scanné : une vraie clé Resend, un
+token GitHub, une clé `sk-`, une URL PostgreSQL avec mot de passe ou un
+`ADMIN_TOKEN` long non-placeholder doivent faire échouer le scan.
+
+Le même scan peut être lancé localement avec :
+
+```bash
+pnpm audit:secrets
+```
 
 Les overrides `pnpm` du `package.json` sont utilisés uniquement pour forcer des
 versions transitives patchées quand un paquet amont embarque encore une version

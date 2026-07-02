@@ -6,8 +6,10 @@ pour un usage multi-utilisateur durable.
 ## Mécanisme Actuel
 
 - `ADMIN_TOKEN` côté serveur uniquement.
-- Refus de `ADMIN_TOKEN=change-me`.
-- Échec explicite en production si le token est absent ou faible.
+- Refus de `ADMIN_TOKEN=change-me` et
+  `ADMIN_TOKEN=replace-with-long-random-token`.
+- Échec explicite en production si le token est absent, ressemble à un token CI
+  ou contient moins de 32 caractères.
 - Comparaison via hash SHA-256 et `timingSafeEqual`.
 - Cookie httpOnly, `sameSite=lax`, `secure` en production.
 - Cookie limité au chemin `/admin`.
