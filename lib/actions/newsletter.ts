@@ -2,9 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 
-import { prisma } from "@/lib/db";
-import { sendNewsletterNotification } from "@/lib/email";
 import type { ActionState } from "@/lib/actions/types";
+import { submitNewsletterData } from "@/lib/services/newsletter-service";
 import { newsletterSchema } from "@/lib/validators/newsletter.schema";
 import { formDataToObject } from "@/lib/validators/shared";
 
@@ -22,40 +21,13 @@ export async function submitNewsletter(
     };
   }
 
-  try {
-    await prisma.newsletterSubscriber.upsert({
-      where: { email: parsed.data.email },
-      update: {
-        firstName: parsed.data.firstName,
-        organization: parsed.data.organization,
-        organizationType: parsed.data.organizationType,
-        status: "active",
-        consent: parsed.data.consent,
-      },
-      create: {
-        firstName: parsed.data.firstName,
-        email: parsed.data.email,
-        organization: parsed.data.organization,
-        organizationType: parsed.data.organizationType,
-        consent: parsed.data.consent,
-      },
-    });
+  const result = await submitNewsletterData(parsed.data);
 
-    await sendNewsletterNotification(parsed.data);
+  if (result.status === "success") {
     revalidatePath("/admin");
-
-    return {
-      status: "success",
-      message:
-        "Votre demande est bien prise en compte. Si cette adresse est déjà inscrite, aucune duplication ne sera créée.",
-    };
-  } catch {
-    return {
-      status: "error",
-      message:
-        "L'inscription n'a pas pu être enregistrée pour le moment. Vous pouvez réessayer plus tard.",
-    };
   }
+
+  return result;
 }
 
 function normalizeFormData(formData: FormData) {

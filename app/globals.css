@@ -116,7 +116,8 @@ html {
 }
 
 .grid-mask {
-  mask-image: linear-gradient(to bottom, black, transparent 82%);
+  -webkit-mask: linear-gradient(to bottom, black, transparent 82%);
+  mask: linear-gradient(to bottom, black, transparent 82%);
 }
 
 .premium-card {

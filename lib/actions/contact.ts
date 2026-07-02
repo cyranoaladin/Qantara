@@ -5,9 +5,8 @@ import { createHash } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
-import { prisma } from "@/lib/db";
-import { sendContactNotification } from "@/lib/email";
 import type { ActionState } from "@/lib/actions/types";
+import { submitContactData } from "@/lib/services/contact-service";
 import { contactSchema } from "@/lib/validators/contact.schema";
 import { formDataToObject } from "@/lib/validators/shared";
 
@@ -25,56 +24,15 @@ export async function submitContact(
     };
   }
 
-  try {
-    const meta = await getRequestMeta();
+  const result = await submitContactData(parsed.data, {
+    meta: await getRequestMeta(),
+  });
 
-    await prisma.$transaction(async (tx) => {
-      const lead = await tx.lead.create({
-        data: {
-          name: parsed.data.name,
-          email: parsed.data.email,
-          phone: parsed.data.phone,
-          organization: parsed.data.organization,
-          role: parsed.data.role,
-          source: "contact",
-          need: parsed.data.subject,
-          notes: parsed.data.message,
-          consent: parsed.data.consent,
-          ipHash: meta.ipHash,
-          userAgent: meta.userAgent,
-        },
-      });
-
-      await tx.contactMessage.create({
-        data: {
-          name: parsed.data.name,
-          email: parsed.data.email,
-          phone: parsed.data.phone,
-          organization: parsed.data.organization,
-          role: parsed.data.role,
-          subject: parsed.data.subject,
-          message: parsed.data.message,
-          consent: parsed.data.consent,
-          leadId: lead.id,
-        },
-      });
-    });
-
-    await sendContactNotification(parsed.data);
+  if (result.status === "success") {
     revalidatePath("/admin");
-
-    return {
-      status: "success",
-      message:
-        "Votre message a bien été transmis. Qantara AI vous répondra dans les meilleurs délais.",
-    };
-  } catch {
-    return {
-      status: "error",
-      message:
-        "La demande n'a pas pu être enregistrée pour le moment. Vous pouvez réessayer ou écrire directement à contact@qantara-ai.com.",
-    };
   }
+
+  return result;
 }
 
 function normalizeFormData(formData: FormData) {

@@ -10,33 +10,88 @@ type EmailPayload = {
   replyTo?: string;
 };
 
-const fromEmail = "Qantara AI <onboarding@resend.dev>";
+type EmailEnvironment = Partial<
+  Pick<
+    NodeJS.ProcessEnv,
+    "NODE_ENV" | "RESEND_API_KEY" | "RESEND_FROM_EMAIL" | "INTERNAL_CONTACT_EMAIL"
+  >
+>;
 
-async function sendInternalEmail({ subject, html, replyTo }: EmailPayload) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.INTERNAL_CONTACT_EMAIL ?? "contact@qantara-ai.com";
+type EmailConfig =
+  | {
+      enabled: false;
+      to: string;
+      from: string;
+    }
+  | {
+      enabled: true;
+      apiKey: string;
+      to: string;
+      from: string;
+    };
+
+const defaultInternalEmail = "contact@qantara-ai.com";
+const developmentFromEmail = "Qantara AI <contact@qantara-ai.com>";
+
+export function resolveEmailConfig(env: EmailEnvironment = process.env): EmailConfig {
+  const apiKey = env.RESEND_API_KEY?.trim();
+  const to = env.INTERNAL_CONTACT_EMAIL?.trim() || defaultInternalEmail;
+  const from = env.RESEND_FROM_EMAIL?.trim() || "";
+  const nodeEnv = env.NODE_ENV ?? "development";
+
+  if (!isEmailAddress(to)) {
+    throw new Error("INTERNAL_CONTACT_EMAIL must be a valid email address.");
+  }
 
   if (!apiKey) {
+    return {
+      enabled: false,
+      to,
+      from: from || developmentFromEmail,
+    };
+  }
+
+  if (nodeEnv === "production" && !from) {
+    throw new Error("RESEND_FROM_EMAIL is required when Resend is enabled.");
+  }
+
+  return {
+    enabled: true,
+    apiKey,
+    to,
+    from: from || developmentFromEmail,
+  };
+}
+
+async function sendInternalEmail(payload: EmailPayload) {
+  let config: EmailConfig;
+
+  try {
+    config = resolveEmailConfig();
+  } catch (error) {
+    logEmailError("configuration", error);
+    return;
+  }
+
+  if (!config.enabled) {
     if (process.env.NODE_ENV !== "production") {
-      console.info(`[email:dev] ${subject} -> ${to}`);
+      console.info(`[email:dev] notification skipped -> ${config.to}`);
     }
     return;
   }
 
-  const resend = new Resend(apiKey);
+  const resend = new Resend(config.apiKey);
 
   try {
     await resend.emails.send({
-      from: fromEmail,
-      to,
-      subject,
-      html,
-      replyTo,
+      from: config.from,
+      to: config.to,
+      subject: payload.subject,
+      html: payload.html,
+      replyTo: payload.replyTo,
     });
   } catch (error) {
-    if (process.env.NODE_ENV !== "production") {
-      console.error("[email:dev] Resend error", error);
-    }
+    logEmailError("resend", error);
   }
 }
 
@@ -107,11 +162,24 @@ function renderKeyValueEmail(title: string, values: Record<string, string>) {
   return `<div style="font-family:Arial,sans-serif;color:#0f172a;"><h1>${escapeHtml(title)}</h1><table style="border-collapse:collapse;width:100%;max-width:720px;">${rows}</table></div>`;
 }
 
-function escapeHtml(value: string) {
+export function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function isEmailAddress(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function logEmailError(stage: "configuration" | "resend", error: unknown) {
+  if (process.env.NODE_ENV === "production") {
+    console.error(`[email] ${stage} error`);
+    return;
+  }
+
+  console.error(`[email:dev] ${stage} error`, error);
 }

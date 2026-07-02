@@ -15,7 +15,6 @@ export function Footer() {
           <div>
             <Image
               alt="Qantara AI"
-              className="h-12 w-auto"
               height={48}
               src={brandAssets.logoMonochrome}
               width={201}
