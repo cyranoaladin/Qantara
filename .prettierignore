@@ -1,0 +1,10 @@
+node_modules
+.next
+app/generated/prisma
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml
+public/brand/*.svg
+docs/qantara_ai_brand_kit/*.svg
+docs/qantara_ai_brand_kit/preview.html

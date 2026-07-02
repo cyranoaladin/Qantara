@@ -1,0 +1,32 @@
+name: Feature request
+description: Proposer une évolution produit ou technique.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problème à résoudre
+      description: Quel besoin utilisateur ou métier cette évolution couvre-t-elle ?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Solution proposée
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation
+      placeholder: Listez les comportements observables attendus.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risques et contraintes
+      description: Impact sécurité, données, SEO, performance, UX, migrations.
+    validations:
+      required: false

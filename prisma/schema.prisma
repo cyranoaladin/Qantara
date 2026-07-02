@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Lead {
+  id               String              @id @default(cuid())
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  name             String
+  email            String
+  phone            String?
+  organization     String?
+  role             String?
+  source           String
+  status           String              @default("new")
+  need             String?
+  sector           String?
+  organizationType String?
+  budgetRange      String?
+  timeline         String?
+  notes            String?
+  consent          Boolean
+  ipHash           String?
+  userAgent        String?
+  contactMessages  ContactMessage[]
+  diagnostics      DiagnosticRequest[]
+}
+
+model ContactMessage {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  name         String
+  email        String
+  phone        String?
+  organization String?
+  role         String?
+  subject      String
+  message      String
+  consent      Boolean
+  leadId       String?
+  lead         Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+}
+
+model DiagnosticRequest {
+  id               String   @id @default(cuid())
+  createdAt        DateTime @default(now())
+  name             String
+  email            String
+  phone            String?
+  organization     String
+  organizationType String
+  sector           String
+  teamSize         String
+  currentTools     String?
+  mainPain         String
+  targetUseCases   String
+  dataSensitivity  String
+  timeline         String
+  budgetRange      String?
+  message          String?
+  maturityScore    Int?
+  consent          Boolean
+  leadId           String?
+  lead             Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+}
+
+model NewsletterSubscriber {
+  id               String   @id @default(cuid())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  firstName        String
+  email            String   @unique
+  organization     String?
+  organizationType String?
+  status           String   @default("active")
+  consent          Boolean
+}
+
+model ResourceDownload {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  resourceSlug String
+  firstName    String?
+  email        String
+  organization String?
+  consent      Boolean
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  role      String   @default("admin")
+}
