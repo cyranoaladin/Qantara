@@ -15,7 +15,9 @@ backups, monitoring et privacy ne sont pas configurés.
 
 Tous les services externes sont configurés, testés et documentés.
 
-Le gate détaillé est dans [PRODUCTION_SETUP.md](PRODUCTION_SETUP.md).
+Le gate détaillé est dans [PRODUCTION_SETUP.md](PRODUCTION_SETUP.md). Le runbook
+d'exécution manuelle est dans
+[EXTERNAL_SETUP_RUNBOOK.md](EXTERNAL_SETUP_RUNBOOK.md).
 
 ## Avant Commit
 
@@ -53,6 +55,7 @@ Le gate détaillé est dans [PRODUCTION_SETUP.md](PRODUCTION_SETUP.md).
 ## Avant Production
 
 - [ ] Gate production relu : `docs/PRODUCTION_SETUP.md`
+- [ ] Runbook externe suivi : `docs/EXTERNAL_SETUP_RUNBOOK.md`
 - [ ] Variables Vercel configurées
 - [ ] Environnements GitHub `preview` et `production` créés si un workflow de déploiement les utilise
 - [ ] Base PostgreSQL production créée

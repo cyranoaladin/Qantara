@@ -23,6 +23,7 @@
     "prisma:studio": "prisma studio",
     "prisma:seed": "tsx prisma/seed.ts",
     "audit:secrets": "bash scripts/scan-secrets.sh",
+    "release:status": "bash scripts/release-status.sh",
     "ci": "pnpm prisma:generate && pnpm typecheck && pnpm lint && pnpm test && pnpm build",
     "check": "pnpm format:check && pnpm audit:secrets && pnpm ci && pnpm test:e2e"
   },

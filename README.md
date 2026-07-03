@@ -28,7 +28,8 @@ La branche `main` est protégée : pull request obligatoire, checks requis, bran
 Le passage de preview à production est cadré dans
 [docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md). Ce document distingue ce
 qui est prêt dans le code de ce qui dépend encore d'une configuration externe
-réelle.
+réelle. L'exécution manuelle des étapes externes est détaillée dans
+[docs/EXTERNAL_SETUP_RUNBOOK.md](docs/EXTERNAL_SETUP_RUNBOOK.md).
 
 ## Stack
 
@@ -122,13 +123,15 @@ pnpm prisma:deploy
 pnpm prisma:studio
 pnpm prisma:seed
 pnpm audit:secrets
+pnpm release:status
 pnpm ci
 pnpm check
 ```
 
 `pnpm ci` exécute génération Prisma, typecheck, lint, tests unitaires et build.
 `pnpm check` ajoute le contrôle Prettier, le scan local de secrets et les tests
-E2E Playwright.
+E2E Playwright. `pnpm release:status` affiche un état local/GitHub non destructif
+sans exposer de valeurs de secrets.
 
 ## Tests
 
@@ -175,6 +178,8 @@ nécessaire pour valider une pull request.
 
 Déploiement Vercel : voir [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 Gate de production : voir [docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md).
+Runbook de configuration externe : voir
+[docs/EXTERNAL_SETUP_RUNBOOK.md](docs/EXTERNAL_SETUP_RUNBOOK.md).
 
 ## Sécurité
 
