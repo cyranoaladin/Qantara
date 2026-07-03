@@ -36,7 +36,9 @@ test.describe("home page", () => {
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: /Questions fréquentes/i }),
+      page.getByRole("heading", {
+        name: /Réponses aux questions les plus posées/i,
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
