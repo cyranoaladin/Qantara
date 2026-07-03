@@ -25,6 +25,11 @@ configurés ou validés :
 La branche `main` est protégée : pull request obligatoire, checks requis, branche
 à jour, conversations résolues, force-push et suppression bloqués.
 
+Le passage de preview à production est cadré dans
+[docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md). Ce document distingue ce
+qui est prêt dans le code de ce qui dépend encore d'une configuration externe
+réelle.
+
 ## Stack
 
 - Next.js App Router, React 19, TypeScript strict
@@ -169,6 +174,7 @@ La CI qualité utilise uniquement des variables factices. Aucun secret GitHub n'
 nécessaire pour valider une pull request.
 
 Déploiement Vercel : voir [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+Gate de production : voir [docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md).
 
 ## Sécurité
 
@@ -258,13 +264,14 @@ tests produit et revue.
 
 ## Première Mise En Production
 
-1. Configurer PostgreSQL production.
-2. Configurer les variables Vercel.
-3. Remplacer `ADMIN_TOKEN` par une valeur robuste.
-4. Lancer `pnpm prisma:deploy` sur l'environnement cible.
-5. Vérifier `NEXT_PUBLIC_SITE_URL` avec le domaine final.
-6. Lancer une passe QA : [docs/QA.md](docs/QA.md).
-7. Vérifier que la protection de branche GitHub reste active.
-8. Configurer monitoring, alerting et sauvegardes PostgreSQL.
+1. Suivre le gate production : [docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md).
+2. Configurer PostgreSQL production.
+3. Configurer les variables Vercel.
+4. Remplacer `ADMIN_TOKEN` par une valeur robuste ou mettre en place Auth.js/SSO.
+5. Lancer `pnpm prisma:deploy` sur l'environnement cible.
+6. Vérifier `NEXT_PUBLIC_SITE_URL` avec le domaine final.
+7. Lancer une passe QA : [docs/QA.md](docs/QA.md).
+8. Vérifier que la protection de branche GitHub reste active.
+9. Configurer monitoring, alerting et sauvegardes PostgreSQL.
 
 Checklist détaillée : [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md).

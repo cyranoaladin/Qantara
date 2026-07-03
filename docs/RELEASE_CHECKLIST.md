@@ -1,5 +1,22 @@
 # Checklist Release
 
+## Niveaux de Release
+
+### Preview Technique
+
+Code et CI valides, infrastructure production absente.
+
+### Production Candidate
+
+Code prêt, mais production bloquée tant que Vercel, PostgreSQL, secrets,
+backups, monitoring et privacy ne sont pas configurés.
+
+### Production Ready
+
+Tous les services externes sont configurés, testés et documentés.
+
+Le gate détaillé est dans [PRODUCTION_SETUP.md](PRODUCTION_SETUP.md).
+
 ## Avant Commit
 
 - [ ] `pnpm install --frozen-lockfile`
@@ -35,6 +52,7 @@
 
 ## Avant Production
 
+- [ ] Gate production relu : `docs/PRODUCTION_SETUP.md`
 - [ ] Variables Vercel configurées
 - [ ] Environnements GitHub `preview` et `production` créés si un workflow de déploiement les utilise
 - [ ] Base PostgreSQL production créée
