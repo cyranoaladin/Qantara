@@ -32,7 +32,10 @@ const steps = [
 
 export function MethodSection() {
   return (
-    <section className="section-padding border-y border-border bg-card/24">
+    <section
+      className="section-padding section-glow-top border-y border-border bg-card/24"
+      id="methode"
+    >
       <div className="container-shell">
         <SectionHeader
           badge="Méthode QANTARA-5"
@@ -45,8 +48,12 @@ export function MethodSection() {
               className="relative p-5 hover:-translate-y-1 hover:border-primary/45"
               key={title}
             >
-              <span className="text-sm font-semibold text-primary">0{index + 1}</span>
-              <h3 className="mt-5 text-xl font-semibold">{title}</h3>
+              <div className="flex items-center gap-3">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sm font-bold text-primary">
+                  {index + 1}
+                </span>
+              </div>
+              <h3 className="mt-4 text-xl font-semibold">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
                 {description}
               </p>

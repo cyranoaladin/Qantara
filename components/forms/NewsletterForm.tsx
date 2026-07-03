@@ -25,7 +25,7 @@ export function NewsletterForm() {
   const [state, formAction] = useActionState(submitNewsletter, initialActionState);
 
   return (
-    <form action={formAction} className="surface grid gap-5 rounded-lg p-6">
+    <form action={formAction} className="surface grid gap-5 rounded-xl p-6 md:p-8">
       <input
         aria-hidden="true"
         autoComplete="off"
@@ -36,28 +36,43 @@ export function NewsletterForm() {
 
       <div className="grid gap-2">
         <label className="text-sm font-medium" htmlFor="newsletter-firstName">
-          Prénom
+          Prénom <span className="text-primary">*</span>
         </label>
-        <Input id="newsletter-firstName" name="firstName" required />
+        <Input
+          id="newsletter-firstName"
+          name="firstName"
+          required
+          placeholder="Votre prénom"
+        />
         <FieldError errors={state.errors?.firstName} />
       </div>
 
       <div className="grid gap-2">
         <label className="text-sm font-medium" htmlFor="newsletter-email">
-          Email professionnel
+          Email professionnel <span className="text-primary">*</span>
         </label>
-        <Input id="newsletter-email" name="email" required type="email" />
+        <Input
+          id="newsletter-email"
+          name="email"
+          required
+          type="email"
+          placeholder="nom@organisation.com"
+        />
         <FieldError errors={state.errors?.email} />
       </div>
 
-      <div className="grid gap-2 md:grid-cols-2">
-        <div>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-2">
           <label className="text-sm font-medium" htmlFor="newsletter-organization">
             Organisation
           </label>
-          <Input id="newsletter-organization" name="organization" />
+          <Input
+            id="newsletter-organization"
+            name="organization"
+            placeholder="Nom de votre organisation"
+          />
         </div>
-        <div>
+        <div className="grid gap-2">
           <label className="text-sm font-medium" htmlFor="newsletter-organizationType">
             Type d'organisation
           </label>
