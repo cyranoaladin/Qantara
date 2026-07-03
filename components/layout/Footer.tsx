@@ -27,7 +27,7 @@ export function Footer() {
             <div className="mt-5 flex items-center gap-3">
               <a
                 className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-white/[0.04] text-muted-foreground transition-colors hover:border-primary/35 hover:text-primary"
-                href="https://www.linkedin.com/company/qantara-ai"
+                href={siteConfig.linkedin}
                 rel="noreferrer"
                 target="_blank"
                 aria-label="LinkedIn Qantara AI"
@@ -71,7 +71,7 @@ export function Footer() {
               <li>
                 <a
                   className="transition-colors hover:text-primary"
-                  href="https://www.linkedin.com/company/qantara-ai"
+                  href={siteConfig.linkedin}
                   rel="noreferrer"
                   target="_blank"
                 >

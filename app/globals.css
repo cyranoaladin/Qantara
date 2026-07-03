@@ -88,6 +88,11 @@ html {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+
+  svg animateMotion,
+  svg animate {
+    display: none;
+  }
 }
 
 /* ── Layout ─────────────────────────────────────────── */
@@ -265,6 +270,14 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
+@media (forced-colors: active) {
+  .gradient-text,
+  .gradient-text-gold {
+    -webkit-text-fill-color: unset;
+    background: none;
+  }
+}
+
 /* ── FAQ accordion ──────────────────────────────────── */
 
 .faq-item {
@@ -349,7 +362,8 @@ html {
   transition: transform 250ms ease;
 }
 
-.link-underline:hover::after {
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
 }

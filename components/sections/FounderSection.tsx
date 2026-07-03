@@ -1,6 +1,7 @@
 import { Binary, BookOpenCheck, GraduationCap, Sigma } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
+import { siteConfig } from "@/lib/seo";
 
 import { SectionHeader } from "./SectionHeader";
 
@@ -58,7 +59,7 @@ export function FounderSection() {
           <div className="mt-6 flex items-center gap-3">
             <a
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/35 hover:text-foreground"
-              href="https://www.linkedin.com/company/qantara-ai"
+              href={siteConfig.linkedin}
               rel="noreferrer"
               target="_blank"
             >

@@ -44,7 +44,7 @@ export function ActionMessage({
           ? "flex items-start gap-3 rounded-lg border border-emerald-400/25 bg-emerald-400/10 p-4 text-sm text-emerald-100"
           : "flex items-start gap-3 rounded-lg border border-red-400/25 bg-red-400/10 p-4 text-sm text-red-100"
       }
-      role="alert"
+      role={status === "success" ? "status" : "alert"}
     >
       {status === "success" ? (
         <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />

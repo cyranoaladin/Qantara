@@ -8,6 +8,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: process.env.INTERNAL_CONTACT_EMAIL ?? "contact@qantara-ai.com",
   locale: "fr_TN",
+  linkedin: "https://www.linkedin.com/company/qantara-ai",
 };
 
 export function absoluteUrl(path = "/") {
