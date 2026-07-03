@@ -6,7 +6,7 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   return (
     <div
       className={cn(
-        "surface premium-card rounded-[24px] p-6 transition-all duration-200",
+        "surface premium-card rounded-2xl p-6 transition-all duration-200",
         className,
       )}
       {...props}

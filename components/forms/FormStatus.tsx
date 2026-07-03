@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, XCircle } from "lucide-react";
 import type { ReactNode } from "react";
 import { useFormStatus } from "react-dom";
 
@@ -20,7 +20,12 @@ export function SubmitButton({ children }: { children: ReactNode }) {
 export function FieldError({ errors }: { errors?: string[] }) {
   if (!errors?.length) return null;
 
-  return <p className="mt-2 text-xs text-red-300">{errors[0]}</p>;
+  return (
+    <p className="mt-1 flex items-center gap-1.5 text-xs text-red-300" role="alert">
+      <XCircle className="h-3 w-3 shrink-0" />
+      {errors[0]}
+    </p>
+  );
 }
 
 export function ActionMessage({
@@ -33,14 +38,20 @@ export function ActionMessage({
   if (!message) return null;
 
   return (
-    <p
+    <div
       className={
         status === "success"
-          ? "rounded-md border border-emerald-400/25 bg-emerald-400/10 p-3 text-sm text-emerald-100"
-          : "rounded-md border border-red-400/25 bg-red-400/10 p-3 text-sm text-red-100"
+          ? "flex items-start gap-3 rounded-lg border border-emerald-400/25 bg-emerald-400/10 p-4 text-sm text-emerald-100"
+          : "flex items-start gap-3 rounded-lg border border-red-400/25 bg-red-400/10 p-4 text-sm text-red-100"
       }
+      role={status === "success" ? "status" : "alert"}
     >
-      {message}
-    </p>
+      {status === "success" ? (
+        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+      ) : (
+        <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-400" />
+      )}
+      <p>{message}</p>
+    </div>
   );
 }

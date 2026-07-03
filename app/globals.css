@@ -88,7 +88,14 @@ html {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+
+  svg animateMotion,
+  svg animate {
+    display: none;
+  }
 }
+
+/* ── Layout ─────────────────────────────────────────── */
 
 .container-shell {
   margin-inline: auto;
@@ -106,6 +113,8 @@ html {
 .text-pretty {
   text-wrap: pretty;
 }
+
+/* ── Surfaces & Cards ───────────────────────────────── */
 
 .surface {
   background:
@@ -138,4 +147,254 @@ html {
 .premium-card:hover::before,
 .premium-card:focus-within::before {
   opacity: 1;
+}
+
+/* ── Scroll-reveal animations ───────────────────────── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.12;
+  }
+  50% {
+    opacity: 0.22;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease both;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease both;
+}
+
+.animate-scroll-hint {
+  animation: scroll-hint 2.4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* ── Gradient text ──────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--foreground) 40%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, var(--foreground) 40%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (forced-colors: active) {
+  .gradient-text,
+  .gradient-text-gold {
+    -webkit-text-fill-color: unset;
+    background: none;
+  }
+}
+
+/* ── FAQ accordion ──────────────────────────────────── */
+
+.faq-item {
+  overflow: hidden;
+}
+
+.faq-item summary {
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::marker {
+  display: none;
+  content: "";
+}
+
+.faq-item .faq-chevron {
+  transition: transform 250ms ease;
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-item .faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease;
+}
+
+.faq-item[open] .faq-body {
+  grid-template-rows: 1fr;
+}
+
+.faq-item .faq-body > div {
+  overflow: hidden;
+}
+
+/* ── Mobile nav overlay ─────────────────────────────── */
+
+.mobile-nav-enter {
+  animation: slide-down 0.25s ease both;
+}
+
+/* ── Section dividers ───────────────────────────────── */
+
+.section-glow-top {
+  position: relative;
+}
+
+.section-glow-top::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 211, 238, 0.35),
+    rgba(214, 168, 90, 0.25),
+    transparent
+  );
+}
+
+/* ── Enhanced link hover ────────────────────────────── */
+
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -2px 0;
+  height: 1px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 250ms ease;
+}
+
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── Badge glow variant ─────────────────────────────── */
+
+.badge-glow {
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.15);
+}
+
+/* ── Progress bar in cards ──────────────────────────── */
+
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }

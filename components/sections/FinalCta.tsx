@@ -2,12 +2,15 @@ import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Glow } from "@/components/visual/Glow";
 
 export function FinalCta() {
   return (
     <section className="section-padding">
       <div className="container-shell">
-        <div className="relative overflow-hidden rounded-lg border border-primary/20 bg-primary/10 p-8 md:p-12">
+        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.06] p-8 md:p-14">
+          <Glow className="left-0 top-0 h-48 w-48 bg-primary/10 blur-3xl" />
+          <Glow className="bottom-0 right-0 h-48 w-48 bg-secondary/10 blur-3xl" />
           <div
             aria-hidden="true"
             className="absolute inset-0 opacity-40"
@@ -17,11 +20,16 @@ export function FinalCta() {
             }}
           />
           <div className="relative max-w-3xl">
-            <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-4xl">
-              Votre organisation utilise déjà l'IA. La décision à prendre est maintenant
-              organisationnelle.
+            <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+              Prochaine étape
+            </p>
+            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight md:text-4xl">
+              Votre organisation utilise déjà l'IA.{" "}
+              <span className="gradient-text-gold">
+                La décision à prendre est maintenant organisationnelle.
+              </span>
             </h2>
-            <p className="mt-4 text-pretty text-base leading-7 text-muted-foreground md:text-lg">
+            <p className="mt-5 text-pretty text-base leading-7 text-muted-foreground md:text-lg">
               Planifiez un diagnostic IA pour clarifier les cas d'usage à lancer, les
               données à protéger, les équipes à former et les indicateurs à suivre.
             </p>

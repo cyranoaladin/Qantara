@@ -43,7 +43,7 @@ export function Header() {
         >
           {mainNavigation.map((item) => (
             <Link
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground"
+              className="link-underline rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               href={item.href}
               key={item.href}
             >
@@ -58,7 +58,7 @@ export function Header() {
           </Button>
           <Button asChild>
             <Link href="/diagnostic-ia">
-              Planifier un diagnostic IA
+              Diagnostic IA
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

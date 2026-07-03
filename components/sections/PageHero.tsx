@@ -20,12 +20,20 @@ export function PageHero({
           backgroundSize: "60px 60px",
         }}
       />
+      <div
+        aria-hidden="true"
+        className="absolute left-1/4 top-0 h-48 w-48 rounded-full bg-primary/8 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-secondary/6 blur-3xl"
+      />
       <div className="container-shell relative">
-        <Badge>{eyebrow}</Badge>
-        <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold tracking-tight md:text-5xl">
-          {title}
+        <Badge className="animate-fade-up badge-glow">{eyebrow}</Badge>
+        <h1 className="animate-fade-up delay-100 mt-5 max-w-4xl text-balance text-4xl font-semibold tracking-tight md:text-5xl">
+          <span className="gradient-text">{title}</span>
         </h1>
-        <p className="mt-5 max-w-3xl text-pretty text-lg leading-8 text-muted-foreground">
+        <p className="animate-fade-up delay-200 mt-5 max-w-3xl text-pretty text-lg leading-8 text-muted-foreground">
           {description}
         </p>
       </div>

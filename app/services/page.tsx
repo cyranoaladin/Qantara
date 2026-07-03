@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { ServiceCard } from "@/components/cards/ServiceCard";
 import { PageHero } from "@/components/sections/PageHero";
@@ -23,26 +24,32 @@ export default function ServicesPage() {
         title="Un cadre d'intervention pour passer de l'intuition IA à une feuille de route exploitable."
         description="Qantara AI accompagne les organisations depuis la décision stratégique jusqu'au prototype, à la formation et à la gouvernance des usages."
       />
-      <section className="border-b border-border bg-card/24 py-10">
+      <section className="section-glow-top border-b border-border bg-card/24 py-10">
         <div className="container-shell grid gap-4 md:grid-cols-3">
           {[
-            [
-              "Décider",
-              "Identifier les cas d'usage réellement prioritaires et les dépendances données, métiers et sécurité.",
-            ],
-            [
-              "Équiper",
-              "Former les équipes et construire les assistants ou automatisations utiles sur un périmètre maîtrisé.",
-            ],
-            [
-              "Gouverner",
-              "Définir les règles d'usage, les validations humaines et les indicateurs d'adoption.",
-            ],
-          ].map(([title, description]) => (
-            <Card className="p-5" key={title}>
-              <h2 className="text-lg font-semibold">{title}</h2>
+            {
+              title: "Décider",
+              description:
+                "Identifier les cas d'usage réellement prioritaires et les dépendances données, métiers et sécurité.",
+              accent: "text-primary",
+            },
+            {
+              title: "Équiper",
+              description:
+                "Former les équipes et construire les assistants ou automatisations utiles sur un périmètre maîtrisé.",
+              accent: "text-secondary",
+            },
+            {
+              title: "Gouverner",
+              description:
+                "Définir les règles d'usage, les validations humaines et les indicateurs d'adoption.",
+              accent: "text-emerald-400",
+            },
+          ].map((step) => (
+            <Card className="p-5" key={step.title}>
+              <h2 className={`text-lg font-semibold ${step.accent}`}>{step.title}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                {description}
+                {step.description}
               </p>
             </Card>
           ))}
@@ -55,28 +62,41 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
-      <section className="section-padding border-t border-border bg-card/24">
-        <div className="container-shell grid gap-5 lg:grid-cols-2">
+      <section className="section-padding section-glow-top border-t border-border bg-card/24">
+        <div className="container-shell">
+          <h2 className="text-3xl font-semibold">Détail des cadres d'intervention</h2>
+          <p className="mt-3 text-base text-muted-foreground">
+            Chaque service traite un problème métier, propose un accompagnement structuré
+            et produit des livrables exploitables.
+          </p>
+        </div>
+        <div className="container-shell mt-8 grid gap-5 lg:grid-cols-2">
           {services.map((service) => (
             <Card key={service.title}>
               <h2 className="text-2xl font-semibold">{service.title}</h2>
-              <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                Problème traité : {service.problem}
-              </p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Accompagnement proposé : {service.approach}
-              </p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Risque maîtrisé : {service.riskHandled}
-              </p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Format : {service.engagement}
-              </p>
+              <div className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+                <p>
+                  <span className="font-medium text-foreground">Problème traité :</span>{" "}
+                  {service.problem}
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">Accompagnement :</span>{" "}
+                  {service.approach}
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">Risque maîtrisé :</span>{" "}
+                  {service.riskHandled}
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">Format :</span>{" "}
+                  {service.engagement}
+                </p>
+              </div>
               <p className="mt-5 text-sm font-semibold text-foreground">Livrables</p>
               <ul className="mt-3 grid gap-2 text-sm text-muted-foreground">
                 {service.deliverables.map((deliverable) => (
-                  <li className="flex gap-2" key={deliverable}>
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                  <li className="flex items-center gap-2" key={deliverable}>
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-primary" />
                     <span>{deliverable}</span>
                   </li>
                 ))}
@@ -85,8 +105,11 @@ export default function ServicesPage() {
           ))}
         </div>
         <div className="container-shell mt-10">
-          <Button asChild>
-            <Link href="/diagnostic-ia">Planifier un diagnostic IA</Link>
+          <Button asChild size="lg">
+            <Link href="/diagnostic-ia">
+              Planifier un diagnostic IA
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </section>

@@ -14,7 +14,11 @@ export function SectionHeader({
 }) {
   return (
     <div className={cn("max-w-3xl", className)}>
-      {badge ? <Badge>{badge}</Badge> : null}
+      {badge ? (
+        <Badge className="border-primary/20 bg-primary/[0.08] text-primary">
+          {badge}
+        </Badge>
+      ) : null}
       <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
         {title}
       </h2>
