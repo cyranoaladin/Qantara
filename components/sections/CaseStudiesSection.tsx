@@ -82,16 +82,16 @@ export function CaseStudiesSection() {
                   <div className="flex gap-3">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
                     <p className="text-sm leading-6 text-muted-foreground">
-                      <span className="font-medium text-foreground">Résultat visé</span>{" "}
-                      : {item.result}
+                      <span className="font-medium text-foreground">Résultat visé</span> :{" "}
+                      {item.result}
                     </p>
                   </div>
                 </div>
                 <div className="mt-5 flex gap-3 border-t border-border pt-5">
                   <Shield className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
                   <p className="text-xs leading-5 text-muted">
-                    <span className="font-medium text-muted-foreground">Garde-fou</span>{" "}
-                    : {item.control}
+                    <span className="font-medium text-muted-foreground">Garde-fou</span> :{" "}
+                    {item.control}
                   </p>
                 </div>
               </Card>

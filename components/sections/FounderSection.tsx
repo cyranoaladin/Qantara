@@ -12,8 +12,7 @@ const pillars = [
   },
   {
     label: "Culture informatique & algorithmique",
-    description:
-      "Comprendre les limites techniques et les intégrer dans l'architecture.",
+    description: "Comprendre les limites techniques et les intégrer dans l'architecture.",
     icon: Binary,
   },
   {
@@ -23,8 +22,7 @@ const pillars = [
   },
   {
     label: "Vision IA & blockchain",
-    description:
-      "Relier automatisation, confiance, traçabilité et nouveaux usages.",
+    description: "Relier automatisation, confiance, traçabilité et nouveaux usages.",
     icon: BookOpenCheck,
   },
 ] as const;
@@ -47,7 +45,8 @@ export function FounderSection() {
                 Alaeddine BEN RHOUMA
               </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Professeur agrégé de mathématiques · Enseignant Maths & NSI · Coordinateur Labo Maths
+                Professeur agrégé de mathématiques · Enseignant Maths & NSI · Coordinateur
+                Labo Maths
               </p>
             </div>
           </div>
