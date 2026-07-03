@@ -74,7 +74,7 @@ d'exécution manuelle est dans
 - [ ] Auth admin V1 acceptée explicitement ou remplacée par Auth.js/SSO
 - [ ] Issues production-readiness restantes fermées ou reportées avec propriétaire
 
-## Issues Externes À Fermer Avant Production Candidate
+## Issues Externes À Fermer Avant Production Commerciale
 
 - [ ] #9 Configure Vercel environments and production secrets
 - [ ] #10 Configure production PostgreSQL backups and restore test

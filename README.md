@@ -19,8 +19,7 @@ configurés ou validés :
 - secrets Vercel configurés ;
 - politique de conservation des données validée ;
 - stratégie d'auth admin durable ;
-- monitoring, alerting et sauvegardes PostgreSQL ;
-- triage Dependabot terminé.
+- monitoring, alerting et sauvegardes PostgreSQL.
 
 La branche `main` est protégée : pull request obligatoire, checks requis, branche
 à jour, conversations résolues, force-push et suppression bloqués.
@@ -261,7 +260,9 @@ Stratégie recommandée :
 - production déclenchée uniquement depuis `main`.
 
 Configuration recommandée : [docs/GITHUB_PROTECTION.md](docs/GITHUB_PROTECTION.md).
-Triage Dependabot : [docs/DEPENDABOT_TRIAGE.md](docs/DEPENDABOT_TRIAGE.md).
+Triage Dependabot initial : [docs/DEPENDABOT_TRIAGE.md](docs/DEPENDABOT_TRIAGE.md).
+Les futures mises à jour de dépendances doivent continuer à passer par pull
+request et CI verte.
 
 La règle ESLint `react/no-unescaped-entities` est désactivée pour éviter le bruit
 sur les textes français riches en apostrophes. Les contenus restent relus via
