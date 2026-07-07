@@ -483,16 +483,16 @@ export function HeroIllustration() {
         </text>
 
         {/* Animated dots on connection lines */}
-        <circle r="3" fill="#22d3ee" opacity="0.7">
+        <circle className="motion-safe-smil" r="3" fill="#22d3ee" opacity="0.7">
           <animateMotion dur="4s" repeatCount="indefinite" path="M240 100 L240 175" />
         </circle>
-        <circle r="3" fill="#d6a85a" opacity="0.7">
+        <circle className="motion-safe-smil" r="3" fill="#d6a85a" opacity="0.7">
           <animateMotion dur="4s" repeatCount="indefinite" path="M350 210 L290 210" />
         </circle>
-        <circle r="3" fill="#22d3ee" opacity="0.7">
+        <circle className="motion-safe-smil" r="3" fill="#22d3ee" opacity="0.7">
           <animateMotion dur="5s" repeatCount="indefinite" path="M130 210 L190 210" />
         </circle>
-        <circle r="3" fill="#d6a85a" opacity="0.7">
+        <circle className="motion-safe-smil" r="3" fill="#d6a85a" opacity="0.7">
           <animateMotion dur="4s" repeatCount="indefinite" path="M240 245 L240 340" />
         </circle>
 

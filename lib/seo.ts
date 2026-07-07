@@ -79,7 +79,7 @@ export function organizationJsonLd() {
       addressCountry: "TN",
     },
     description: siteConfig.description,
-    sameAs: ["https://www.linkedin.com/company/qantara-ai"],
+    sameAs: [siteConfig.linkedin],
   };
 }
 

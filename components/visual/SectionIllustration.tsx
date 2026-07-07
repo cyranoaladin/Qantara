@@ -208,28 +208,28 @@ export function DataFlowIllustration({ className }: { className?: string }) {
         </text>
 
         {/* Animated particles */}
-        <circle r="2.5" fill="#22d3ee" opacity="0.8">
+        <circle className="motion-safe-smil" r="2.5" fill="#22d3ee" opacity="0.8">
           <animateMotion
             dur="3s"
             repeatCount="indefinite"
             path="M40 80 C100 80 120 150 200 150"
           />
         </circle>
-        <circle r="2.5" fill="#d6a85a" opacity="0.8">
+        <circle className="motion-safe-smil" r="2.5" fill="#d6a85a" opacity="0.8">
           <animateMotion
             dur="3.5s"
             repeatCount="indefinite"
             path="M200 150 C280 150 300 150 360 150"
           />
         </circle>
-        <circle r="2.5" fill="#34d399" opacity="0.8">
+        <circle className="motion-safe-smil" r="2.5" fill="#34d399" opacity="0.8">
           <animateMotion
             dur="4s"
             repeatCount="indefinite"
             path="M40 220 C100 220 120 150 200 150"
           />
         </circle>
-        <circle r="2" fill="#8b5cf6" opacity="0.8">
+        <circle className="motion-safe-smil" r="2" fill="#8b5cf6" opacity="0.8">
           <animateMotion
             dur="3s"
             repeatCount="indefinite"
@@ -297,6 +297,7 @@ export function ShieldIllustration({ className }: { className?: string }) {
 
         {/* Animated glow */}
         <circle
+          className="motion-safe-smil"
           cx="100"
           cy="108"
           r="35"

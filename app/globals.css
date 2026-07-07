@@ -93,6 +93,10 @@ html {
   svg animate {
     display: none;
   }
+
+  .motion-safe-smil {
+    display: none !important;
+  }
 }
 
 /* ── Layout ─────────────────────────────────────────── */
@@ -273,8 +277,9 @@ html {
 @media (forced-colors: active) {
   .gradient-text,
   .gradient-text-gold {
-    -webkit-text-fill-color: unset;
     background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
   }
 }
 
